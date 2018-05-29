@@ -1,15 +1,15 @@
 import { ValidatorConstraint, ValidatorConstraintInterface } from 'class-validator'
-import { Board, Symbol, Row } from './entities'
+import { Board, Symbol, Column } from './entities'
 
 @ValidatorConstraint()
 export class IsBoard implements ValidatorConstraintInterface {
 
   validate(board: Board) {
     const symbols = [ 'x', 'o', null ]
-    return board.length === 3 &&
-      board.every(row =>
-        row.length === 3 &&
-        row.every(symbol => symbols.includes(symbol))
+    return board.length === 7 &&
+      board.every(column =>
+        column.length === 6 &&
+        column.every(symbol => symbols.includes(symbol))
       )
   }
 }
@@ -17,9 +17,9 @@ export class IsBoard implements ValidatorConstraintInterface {
 export const isValidTransition = (playerSymbol: Symbol, from: Board, to: Board) => {
   const changes = from
     .map(
-      (row, rowIndex) => row.map((symbol, columnIndex) => ({
+      (column, columnIndex) => column.map((symbol, columnIndex) => ({
         from: symbol, 
-        to: to[rowIndex][columnIndex]
+        to: to[columnIndex][columnIndex]
       }))
     )
     .reduce((a,b) => a.concat(b))
@@ -34,7 +34,7 @@ export const calculateWinner = (board: Board): Symbol | null =>
   board
     .concat(
       // vertical winner
-      [0, 1, 2].map(n => board.map(row => row[n])) as Row[]
+      [0, 1, 2].map(n => board.map(column => column[n])) as Column[]
     )
     .concat(
       [
@@ -42,12 +42,12 @@ export const calculateWinner = (board: Board): Symbol | null =>
         [0, 1, 2].map(n => board[n][n]),
         // diagonal winner rtl
         [0, 1, 2].map(n => board[2-n][n])
-      ] as Row[]
+      ] as Column[]
     )
-    .filter(row => row[0] && row.every(symbol => symbol === row[0]))
-    .map(row => row[0])[0] || null
+    .filter(column => column[0] && column.every(symbol => symbol === column[0]))
+    .map(column => column[0])[0] || null
 
 export const finished = (board: Board): boolean =>
   board
-    .reduce((a,b) => a.concat(b) as Row)
+    .reduce((a,b) => a.concat(b) as Column)
     .every(symbol => symbol !== null)
