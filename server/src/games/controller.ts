@@ -82,7 +82,7 @@ export default class GameController {
     @Body() update: GameUpdate
   ) {
     const game = await Game.findOneById(gameId)
-    if (!game) throw new NotFoundError(`Game does not exist`)
+    // if (!game) throw new NotFoundError(`Game does not exist`)
 
     const player = await Player.findOne({ user, game })
 
@@ -93,7 +93,9 @@ export default class GameController {
     //   throw new BadRequestError(`Invalid move`)
     // }    
 
-    // const winner = calculateWinner(update.board)
+    console.log(player, 'WHAT IS THE WINNER???')
+    const winner = calculateWinner(update.board, player)
+    console.log(winner, 'AND THIS????')
     // if (winner) {
     //   game.winner = winner
     //   game.status = 'finished'
@@ -104,6 +106,12 @@ export default class GameController {
     // else {
     //   game.turn = player.symbol === 'x' ? 'o' : 'x'
     // }
+
+    // const checkFinished = finished(update.board)
+    // if (checkFinished) {
+    //     game.status = 'finished'
+    //   }
+    
     game.board = update.board
     await game.save()
 

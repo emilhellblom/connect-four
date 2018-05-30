@@ -9,9 +9,7 @@ export const UPDATE_GAMES = 'UPDATE_GAMES'
 export const JOIN_GAME_SUCCESS = 'JOIN_GAME_SUCCESS'
 export const UPDATE_GAME_SUCCESS = 'UPDATE_GAME_SUCCESS'
 
-const updateGames = games => (
-  console.log(games),
-  {
+const updateGames = games => ({
   type: UPDATE_GAMES,
   payload: games
 })

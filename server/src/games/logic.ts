@@ -30,22 +30,31 @@ export class IsBoard implements ValidatorConstraintInterface {
 //     changes[0].from === null
 // }
 
-export const calculateWinner = (board: Board): Symbol | null =>
-  board
-    .concat(
-      // vertical winner
-      [0, 1, 2, 3, 4, 5, 6].map(n => board.map(column => column[n])) as Column[]
-    )
-    .concat(
-      [
-        // diagonal winner ltr
-        [0, 1, 2, 3, 4, 5, 6].map(n => board[n][n]),
-        // diagonal winner rtl
-        [0, 1, 2, 3, 4, 5, 6].map(n => board[4-n][n])
-      ] as Column[]
-    )
-    .filter(column => column[0] && column.every(symbol => symbol === column[0]))
-    .map(column => column[0])[0] || null
+export const calculateWinner = (board, player) => {
+const checkVertical = board
+  .map(column => column
+    .map((cell, index) => {
+      if (column[index] === cell[index+1] && cell[index] === cell[index+2] && cell[index] === cell[index+3]) {
+      return true
+      }
+    })
+  )
+console.log(checkVertical, 'checkingign')
+if (checkVertical) {
+  return player.symbol
+ } else return null
+}
+  // .concat(
+  //   [
+  //     // diagonal winner ltr
+  //     [0, 1, 2, 3, 4, 5].map(n => board[n][n]),
+  //     // diagonal winner rtl
+  //     [0, 1, 2, 3, 4, 5].map(n => board[5-n][n])
+  //   ]
+  // )
+  // .map(column => console.log(column, 'what is this?'))
+  // .filter(column => column[0] && column.every(symbol => symbol === column[0]))
+  // .map(column => column[0])[0]
 
 export const finished = (board: Board): boolean =>
   board
