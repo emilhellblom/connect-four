@@ -30,15 +30,42 @@ export class IsBoard implements ValidatorConstraintInterface {
 //     changes[0].from === null
 // }
 
+// THis function seems to work
+
+// let boardString = [].concat.apply([], board)
+
+// console.log(boardString)
+// let isMatch = ''
+// let check = board.map(x => {
+//     x.map((item, i) => {
+        
+//         if ((x[i] === x[i+1]) && (x[i] === x[i+2]) && (x[i] === x[i+3]) && (x[i] === ('x' || 'o'))
+//         || 
+//         (x[i+1] === x[i+2]) && (x[i+1] === x[i+3]) && (x[i+1] === x[i+4]) && (x[i+1] === ('x' || 'o'))
+//         || 
+//         (x[i+2] === x[i+3]) && (x[i+2] === x[i+4]) && (x[i+2] === x[i+5]) && (x[i+2] === ('x' || 'o')))
+//         {
+//             return isMatch = 'true'
+//         }
+//     })
+// })
+
 export const calculateWinner = (board, player) => {
 const checkVertical = board
-  .map(column => column
+  .map(column => {
+    if (column
     .map((cell, index) => {
-      if (column[index] === cell[index+1] && cell[index] === cell[index+2] && cell[index] === cell[index+3]) {
-      return true
+      if (column[index] === column[index+1] && column[index] === column[index+2] && column[index] === column[index+3]) {
+        return true
       }
     })
-  )
+    ) {
+      return true
+    }  else {
+      return false
+    }
+  })
+
 console.log(checkVertical, 'checkingign')
 if (checkVertical) {
   return player.symbol
