@@ -8,4 +8,16 @@
 
 .board {
   display: flex;
+  justify-content: center;
+}
+
+.turn {
+  text-align: center;
+}
+
+.outer-paper {
+  /*background-color: #222 !important;
+  border: 2px solid;
+  border-radius: 8% !important;
+  border-color: darkgoldenrod;*/
 }

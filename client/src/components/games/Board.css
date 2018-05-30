@@ -1,4 +1,31 @@
 .board-tile {
+  background-color: #222;
+  color: #222;
+  border: 1px solid;
+  border-radius:50%;
+  display:block;
   height: 50px;
   width: 50px;
+  margin-top: 10%;
+}
+
+.column .board-tile:first-child {
+  margin-top: 0;
+}
+
+.column .board-tile:last-child {
+  margin-bottom: 0;
+}
+
+.column:first-child {
+  margin-left: 0;
+}
+
+.column:last-child {
+  margin-right: 0;
+}
+
+.column {
+  display: inline-block;
+  margin-left: 2%;
 }
