@@ -14,34 +14,34 @@ export class IsBoard implements ValidatorConstraintInterface {
   }
 }
 
-export const isValidTransition = (playerSymbol: Symbol, from: Board, to: Board) => {
-  const changes = from
-    .map(
-      (column, columnIndex) => column.map((symbol, columnIndex) => ({
-        from: symbol, 
-        to: to[columnIndex][columnIndex]
-      }))
-    )
-    .reduce((a,b) => a.concat(b))
-    .filter(change => change.from !== change.to)
+// export const isValidTransition = (playerSymbol: Symbol, from: Board, to: Board) => {
+//   const changes = from
+//     .map(
+//       (column, columnIndex) => column.map((symbol, columnIndex) => ({
+//         from: symbol, 
+//         to: to[columnIndex][columnIndex]
+//       }))
+//     )
+//     .reduce((a,b) => a.concat(b))
+//     .filter(change => change.from !== change.to)
 
-  return changes.length === 1 && 
-    changes[0].to === playerSymbol && 
-    changes[0].from === null
-}
+//   return changes.length === 1 && 
+//     changes[0].to === playerSymbol && 
+//     changes[0].from === null
+// }
 
 export const calculateWinner = (board: Board): Symbol | null =>
   board
     .concat(
       // vertical winner
-      [0, 1, 2].map(n => board.map(column => column[n])) as Column[]
+      [0, 1, 2, 3, 4, 5, 6].map(n => board.map(column => column[n])) as Column[]
     )
     .concat(
       [
         // diagonal winner ltr
-        [0, 1, 2].map(n => board[n][n]),
+        [0, 1, 2, 3, 4, 5, 6].map(n => board[n][n]),
         // diagonal winner rtl
-        [0, 1, 2].map(n => board[2-n][n])
+        [0, 1, 2, 3, 4, 5, 6].map(n => board[4-n][n])
       ] as Column[]
     )
     .filter(column => column[0] && column.every(symbol => symbol === column[0]))

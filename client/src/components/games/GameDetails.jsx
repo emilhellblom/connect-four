@@ -28,6 +28,7 @@ class GameDetails extends PureComponent {
         else return cell
       })
     )
+    console.log(game.id, board, 'WHAT IS HAPPENING HERE??')
     updateGame(game.id, board)
   }
 
