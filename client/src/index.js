@@ -9,14 +9,18 @@ import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
 import purple from '@material-ui/core/colors/purple';
 import green from '@material-ui/core/colors/green';
 
-
-
 const theme = createMuiTheme({
   palette: {
     type: 'dark',
+    primary: {
+      light: "#7986cb",
+      main: "#222",
+      dark: "#222",
+      contrastText: "#fff"
+    }
+
 	},
-	 overrides: {
-    primary: 'green',
+	//overrides: {
   //   // Name of the component ⚛️ / style shee
   //   MuiButton: {
   //     // Name of the rule
@@ -31,7 +35,7 @@ const theme = createMuiTheme({
   //       boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .30)',
   //     },
   //   },
-  },
+  //},
 });
 
 ReactDOM.render(

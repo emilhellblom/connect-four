@@ -5,6 +5,7 @@ import {getGames, joinGame, updateGame} from '../../actions/games'
 import {getUsers} from '../../actions/users'
 import {userId} from '../../jwt'
 import Paper from 'material-ui/Paper'
+import Button from 'material-ui/Button'
 import Board from './Board'
 import './GameDetails.css'
 
@@ -64,7 +65,7 @@ class GameDetails extends PureComponent {
       {
         game.status === 'pending' &&
         game.players.map(p => p.userId).indexOf(userId) === -1 &&
-        <button onClick={this.joinGame}>Join Game</button>
+        <Button onClick={this.joinGame}>Join Game</Button>
       }
 
       {

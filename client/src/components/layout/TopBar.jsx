@@ -3,6 +3,7 @@ import AppBar from 'material-ui/AppBar'
 import Toolbar from 'material-ui/Toolbar'
 import Typography from 'material-ui/Typography'
 import Button from 'material-ui/Button'
+
 import {withRouter} from 'react-router'
 import {userId} from '../../jwt'
 import {connect} from 'react-redux'
@@ -15,7 +16,7 @@ const TopBar = (props) => {
     <AppBar position="absolute" style={{zIndex:10}}>
       <Toolbar>
         <Typography variant="title" color="inherit" style={{flex: 1}}>
-          Multiplayer Tic Tac Toe
+          Multiplayer 4-IN-A-ROW
         </Typography>
         {
           user &&
