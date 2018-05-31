@@ -21,9 +21,9 @@ const theme = createMuiTheme({
   },
   overrides: {
     MuiTypography : {
-        color: {color: "white"},
+        colorPrimary: {color: "green"},
         colorTextSecondary: {color: "red"},
-        colorSecondary: {color: "green"}      
+        colorSecondary: {color: "yellow"}      
     },
     // Name of the component ⚛️ / style shee
     // MuiButton: {

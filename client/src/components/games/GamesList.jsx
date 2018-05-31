@@ -19,10 +19,11 @@ class GamesList extends PureComponent {
 
   renderGame = (game) => {
     const {users, history} = this.props
-
-    return (<Card key={game.id} className="game-card">
+    if(game.status === "pending")
+    {
+      return (<Card key={game.id} className="game-card">
       <CardContent>
-        <Typography color="textSecondary">
+        <Typography color="Primary">
           This game is played by&nbsp;
           {
             game.players
@@ -33,7 +34,7 @@ class GamesList extends PureComponent {
         <Typography variant="headline" component="h2">
           Game #{game.id}
         </Typography>
-        <Typography color="textSecondary">
+        <Typography color="Secondary">
           Status: {game.status}
         </Typography>
       </CardContent>
@@ -46,6 +47,66 @@ class GamesList extends PureComponent {
         </Button>
       </CardActions>
     </Card>)
+    }
+    else if(game.status === "finished")
+    {
+      return (<Card key={game.id} className="game-card">
+      <CardContent>
+        <Typography color="textSecondary">
+          This game was played by&nbsp;
+          {
+            game.players
+              .map(player => users[player.userId].firstName)
+              .join(' and ')
+          }
+        </Typography>
+        <Typography variant="headline" component="h2">
+          Game #{game.id}
+        </Typography>
+        <Typography color="TextSecondary">
+          Status: {game.status}
+        </Typography>
+      </CardContent>
+      <CardActions>
+        <Button
+          size="small"
+          onClick={() => history.push(`/games/${game.id}`)}
+        >
+          Watch
+        </Button>
+      </CardActions>
+    </Card>)
+    }
+    else
+    {
+      return (<Card key={game.id} className="game-card">
+      <CardContent>
+        <Typography color="color">
+          This game is played by&nbsp;
+          {
+            game.players
+              .map(player => users[player.userId].firstName)
+              .join(' and ')
+          }
+        </Typography>
+        <Typography variant="headline" component="h2">
+          Game #{game.id}
+        </Typography>
+        <Typography color="Primary">
+          Status: {game.status}
+        </Typography>
+      </CardContent>
+      <CardActions>
+        <Button
+          size="small"
+          onClick={() => history.push(`/games/${game.id}`)}
+        >
+          Watch
+        </Button>
+      </CardActions>
+    </Card>)
+    }
+    
   }
 
   render() {
