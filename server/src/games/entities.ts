@@ -3,12 +3,12 @@ import User from '../users/entity'
 
 export type Symbol = 'x' | 'o'
 export type Column = [ Symbol | null, Symbol | null, Symbol | null, Symbol | null, Symbol | null, Symbol | null ]
-export type Board = [ Column, Column, Column, Column, Column, Column, Column]
+export type Board = [ Column, Column, Column, Column, Column, Column]
 
 type Status = 'pending' | 'started' | 'finished'
 
 const emptyColumn: Column = [null, null, null, null, null, null]
-const emptyBoard: Board = [ emptyColumn, emptyColumn, emptyColumn, emptyColumn, emptyColumn, emptyColumn, emptyColumn ]
+const emptyBoard: Board = [ emptyColumn, emptyColumn, emptyColumn, emptyColumn, emptyColumn, emptyColumn ]
 
 @Entity()
 export class Game extends BaseEntity {
