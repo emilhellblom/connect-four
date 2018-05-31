@@ -104,6 +104,7 @@ export default class GameController {
     // else {
     //   game.turn = player.symbol === 'x' ? 'o' : 'x'
     // }
+    game.turn = player.symbol === 'x' ? 'o' : 'x'
     game.board = update.board
     await game.save()
 
