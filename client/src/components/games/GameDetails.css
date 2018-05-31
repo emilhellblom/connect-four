@@ -5,6 +5,7 @@
   margin: auto;
   padding: 20px;
   width: 60%;
+  color: white;
 }
 
 .outer-paper div {
@@ -20,13 +21,6 @@
   justify-content: center;
 }
 
-.turn {
+/* .turn {
   text-align: center;
-}
-
-.outer-paper {
-  /*background-color: #222 !important;
-  border: 2px solid;
-  border-radius: 8% !important;
-  border-color: darkgoldenrod;*/
-}
+} */
