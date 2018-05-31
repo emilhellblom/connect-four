@@ -87,3 +87,62 @@ export const finished = (board: Board): boolean =>
   board
     .reduce((a,b) => a.concat(b) as Column)
     .every(symbol => symbol !== null)
+
+
+
+
+
+
+
+  //   let board = [
+  //     ['x', 'x', 'x', null, null, null,],
+  //     [null, 'x', 'x', 'x', null, null,],
+  //     [null, 'x', 'x', 'x', 'x', 'x',],
+  //     [null, null, null, null, null, 'x',],
+  //     [null, 'x', null, null, null, null,],
+  //     ['x', 'x', null, null, null, 'x',]
+  // ]
+  
+  // const symbol = ['x', 'o']
+  
+  // const boardSymbol = ['x', 'o', null]
+  
+  // const slicer = (column, i) => {
+  //     if(
+  //     column.slice(0,4).every(cell => (column[i] === cell) && symbol.includes(cell)) ||
+  //     column.slice(1,5).every(cell => (column[i] === cell) && symbol.includes(cell)) ||
+  //     column.slice(2,6).every(cell => (column[i] === cell) && symbol.includes(cell))
+  //     ) return true
+  // }
+  
+  // const dRowCheck = (column, incrementColumn, incrementRow) => {
+  //     const checkItems = []
+  //     column.map((item, i) => {
+  //         if (board[i+incrementColumn] !== undefined) 
+  //             checkItems.push(board[i+incrementColumn][i+incrementRow])
+  //             console.log(checkItems)
+  
+  //         if ((checkItems.length >= 4) && slicer(checkItems, i)) 
+  //             return isDiagonal = true
+  //     })
+  //     console.log(checkItems)
+  // }
+  
+  // let isHorizontal
+  // let checkHorizontal = board.map(column => {
+  //     column.map((item, index) => {
+  //         if (slicer(column, symbol, index)) return isHorizontal = true
+  //     })
+  // })
+  // let isDiagonal
+  // let checkDiagonal = board.map(column => {
+  //     dRowCheck(column, 0, 0)
+  //     dRowCheck(column, 0, 1)
+  //     dRowCheck(column, 0, 2)
+  //     dRowCheck(column, 1, 0)
+  //     dRowCheck(column, 2, 0)
+  // })
+  // console.log(isDiagonal, 'Is this true?')
+  
+  
+  
