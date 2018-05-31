@@ -17,7 +17,7 @@ const renderCel = (makeMove, columnIndex, cellIndex, symbol, hasTurn) => {
   {
     return (    
       <button
-        className="board-tile blue"
+        className="board-tile yellow"
         disabled={hasTurn}
         onClick={() => makeMove(columnIndex, cellIndex)}
         key={`${columnIndex}-${cellIndex}`}

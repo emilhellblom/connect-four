@@ -1,12 +1,21 @@
 .outer-paper {
+  display: flex;
+  flex-direction: column;
   margin-top: 20px;
   margin: auto;
   padding: 20px;
   width: 60%;
 }
 
+.outer-paper div {
+  align-self: center;
+  padding: 10px 0px;
+}
 
 .board {
+  width: 430px;
+  border: 1px solid blue;
+  background-color: blue;
   display: flex;
   justify-content: center;
 }
