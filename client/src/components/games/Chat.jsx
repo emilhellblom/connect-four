@@ -3,6 +3,8 @@ import { connect } from 'react-redux'
 import { addMessage } from '../../actions/chat'
 import {userId} from '../../jwt'
 import './Chat.css'
+import Button from 'material-ui/Button'
+import {updateGame} from '../../actions/games'
 
 class Chat extends PureComponent {
     state = {
@@ -13,10 +15,16 @@ class Chat extends PureComponent {
         this.setState({ value: e.target.value })
       }
     
-      handleSubmit = e => {
-        e.preventDefault();
-        this.props.addMessage(this.state.value);
+      handleSubmit = (e, game) => {
+        e.preventDefault();       
+        this.addComment(this.state.value, game);
         this.setState({ value: '' })
+      }
+
+      addComment = (comment, game) => {
+        const {updateGame} = this.props
+        console.log(game)
+        updateGame(this.props.game.id, this.props.game.board, comment)
       }
 
      userHandle = (userObjects, userId) => {
@@ -28,19 +36,17 @@ class Chat extends PureComponent {
     
       render() {
         const { value } = this.state;
-        const { chat, users, userId } = this.props
-        // console.log(users)
+        const { game, chat, users, userId } = this.props
+        console.log(game)
         return (
             <div className='chat-bar'>
                 <div className='message-field'>
-                    {chat.map(message => (
-                        <p className='messages'>{this.userHandle(users, userId)} - {message}</p>
-                    ))}
+                    <p className='messages'>- {game.comment}</p>
                 </div>
-                <div>
-                    <form onSubmit={e => this.handleSubmit(e)}>
-                    <input onChange={ e => this.handleChange(e) } value={ value } type='text' maxLength='50'/>
-                    <input type="submit"/>
+                <div className='submit-div'>
+                    <form className='submit-form' onSubmit={e => this.handleSubmit(e, game)}>
+                    <input className='input-field' onChange={ e => this.handleChange(e) } value={ value } type='text' maxLength='50' placeholder='Type a message!'/>
+                    <input className='submit' type="submit"/>
                     </form>
                 </div>
             </div>
@@ -48,11 +54,12 @@ class Chat extends PureComponent {
     }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, props) => {
     return {
         chat: state.chat,
         userId: state.currentUser && userId(state.currentUser.jwt),
-        users: state.users
+        users: state.users,
+        // game: state.games && state.games[props.match.params.id],
       
     }
 }
@@ -63,4 +70,4 @@ const mapDispatchToProps = dispatch => {
     }
 }
   
-export default connect(mapStateToProps, mapDispatchToProps)(Chat)
+export default connect(mapStateToProps, {updateGame})(Chat)

@@ -14,6 +14,7 @@ class GameUpdate {
     message: 'Not a valid board'
   })
   board: Board
+  comment: String
 }
 
 @JsonController()
@@ -91,7 +92,15 @@ export default class GameController {
     if (player.symbol !== game.turn) throw new BadRequestError(`It's not your turn`)   
 
     const winner = calculateWinner(update.board, player.symbol)
-    if (winner) {
+    if (update.comment) {
+      game.comment = update.comment
+      io.emit('action', {
+        type: 'UPDATE_GAME',
+        payload: game
+      })
+      return game
+    }
+    else if (winner) {
       game.winner = winner
       game.status = 'finished'
     }
@@ -99,9 +108,9 @@ export default class GameController {
       game.status = 'finished'
     }
     else {
-      game.turn = player.symbol === 'x' ? 'o' : 'x'
+        game.turn = player.symbol === 'x' ? 'o' : 'x'
     }
-
+    
     game.board = update.board
     await game.save()
 

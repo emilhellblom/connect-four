@@ -29,13 +29,15 @@ class GameDetails extends PureComponent {
     const toCelln = currentRow.filter(cell => cell === null).length
     if (toCelln === 0) return 
     board[toColumn][toCelln-1] = game.turn
-    updateGame(game.id, board)
+    updateGame(game.id, board, null)
   }
 
+  
 
 
   render() {
     const {game, users, authenticated, userId} = this.props
+    console.log(this.props)
 
     if (!authenticated) return (
 			<Redirect to="/login" />
@@ -96,7 +98,7 @@ class GameDetails extends PureComponent {
           <Board board={game.board} makeMove={this.makeMove} />
         </div>
       }
-      <Chat />
+      <Chat game={this.props.game}/>
     </Paper>)
   }
 }
