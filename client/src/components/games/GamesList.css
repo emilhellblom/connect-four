@@ -17,6 +17,7 @@ h2 {
   margin-top: 20px;
   padding: 20px;
   width: 60%;
+  font-family: 'Luckiest Guy', cursive !important;
 }
 
 .game-card {
@@ -25,4 +26,5 @@ h2 {
 
 .listwrapper {
   width: 100%;
+  
 }

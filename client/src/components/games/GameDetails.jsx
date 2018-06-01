@@ -24,15 +24,10 @@ class GameDetails extends PureComponent {
     const {game, updateGame} = this.props
 
     const board = game.board
-    // from the current row, 
     const currentRow = board[toColumn]
-    //get only the empty cells, and check the length of this array to find how many empty positions there are
     const toCelln = currentRow.filter(cell => cell === null).length
-    // if there are no empty cells in the column, return (and allow another move)
     if (toCelln === 0) return 
-    // fill the last empty position with the symbol of the one who's turn it is = game.turn
     board[toColumn][toCelln-1] = game.turn
-    // returns the board with the new update
     updateGame(game.id, board)
   }
 
