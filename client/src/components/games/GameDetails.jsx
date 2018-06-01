@@ -54,6 +54,15 @@ class GameDetails extends PureComponent {
       .filter(p => p.symbol === game.winner)
       .map(p => p.userId)[0]
 
+    const playerColor = () => {
+      if (player.symbol === 'x') return (
+        <div className='red-player'></div>
+      )
+      if (player.symbol === 'o') return (
+        <div className='yellow-player'></div>
+      )
+    }
+
     return (<Paper className="outer-paper">
       <h1>Game #{game.id}</h1>
 
@@ -63,6 +72,13 @@ class GameDetails extends PureComponent {
         game.status === 'started' &&
         player && player.symbol === game.turn &&
         <div>It's your turn!</div>
+      }
+
+      {
+        game.status === 'started' &&
+        <div className='color-display'>
+          This is your color {playerColor()}
+        </div>
       }
 
       {

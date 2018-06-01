@@ -1,6 +1,5 @@
 import { ValidatorConstraint, ValidatorConstraintInterface } from 'class-validator'
-import { Board, Symbol, Column } from './entities'
-import { AdvancedConsoleLogger } from 'typeorm';
+import { Board, Column } from './entities'
 
 @ValidatorConstraint()
 export class IsBoard implements ValidatorConstraintInterface {
@@ -14,22 +13,6 @@ export class IsBoard implements ValidatorConstraintInterface {
       )
   }
 }
-
-// export const isValidTransition = (playerSymbol: Symbol, from: Board, to: Board) => {
-//   const changes = from
-//     .map(
-//       (column, columnIndex) => column.map((symbol, columnIndex) => ({
-//         from: symbol, 
-//         to: to[columnIndex][columnIndex]
-//       }))
-//     )
-//     .reduce((a,b) => a.concat(b))
-//     .filter(change => change.from !== change.to)
-
-//   return changes.length === 1 && 
-//     changes[0].to === playerSymbol && 
-//     changes[0].from === null
-// }
 
 export const calculateWinner = (board, playerSymbol) => {
   const symbol = ['x', 'o']
@@ -67,7 +50,6 @@ export const calculateWinner = (board, playerSymbol) => {
         if ((checkItems.length >= 4) && slicer(checkItems, i))
           return isDiagonal = true
     })
-    console.log('top to bottom check', checkItems)
   }
 
   const bttRowCheck = (column, incrementColumn, incrementRow) => {
@@ -80,8 +62,8 @@ export const calculateWinner = (board, playerSymbol) => {
         if ((checkItems.length >= 4) && slicer(checkItems, i)) 
             return isDiagonal = true
     })
-    console.log('bottom to top check', checkItems)
   }
+
   let isDiagonal
 
   const diagonalFunction = () => board.map(column => {
@@ -122,7 +104,6 @@ export const calculateWinner = (board, playerSymbol) => {
   }
 
   const horizontalFunction = () => board.map((column, index) => {
-    console.log(column)
     checkHorizontal(column, 0, index)
   })
 
@@ -132,7 +113,6 @@ export const calculateWinner = (board, playerSymbol) => {
   if ((isVertical || isHorizontal || isDiagonal) === true)
     return playerSymbol
 
-    console.log('board after finish', board)
 }
 
 

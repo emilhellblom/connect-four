@@ -13,7 +13,6 @@ export default (state = null, {type, payload}) => {
       }
 
     case UPDATE_GAME:
-      console.log(payload, 'UPDATE GAME')
       return {
         ...state,
         [payload.id]: payload

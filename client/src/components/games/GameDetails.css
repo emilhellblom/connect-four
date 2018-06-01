@@ -11,6 +11,7 @@
 .outer-paper div {
   align-self: center;
   padding: 10px 0px;
+  border-radius: 15px;
 }
 
 .board {
@@ -21,6 +22,24 @@
   justify-content: center;
 }
 
-/* .turn {
-  text-align: center;
-} */
+.color-display {
+  display: flex;
+  flex-direction: column;
+  justify-content: center
+}
+
+.red-player {
+  background-color: red;
+}
+
+.yellow-player {
+  background-color: yellow;
+}
+
+.yellow-player, .red-player {
+  margin-top: 5px;
+  width: 30px;
+  height: 10px;
+  border-radius: 15px;
+}
+
