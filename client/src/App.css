@@ -45,8 +45,6 @@ form div {
   display: flex;
   justify-content: space-between;
   margin-bottom: 5px;
-  /*align-self: center;*/
-  /*margin: 5px 0;*/
 }
 
 @keyframes App-logo-spin {

@@ -120,7 +120,7 @@ class GamesList extends PureComponent {
 
     return (<Paper className="outer-paper">
       <Button
-        color="green"
+        color="inherit"
         variant="raised"
         onClick={createGame}
         className="create-game"
@@ -128,7 +128,7 @@ class GamesList extends PureComponent {
         Create Game
       </Button>
 
-      <div classnName="listwrapper">
+      <div className="listwrapper">
         {games.map(game => this.renderGame(game))}
       </div>
     </Paper>)
