@@ -1,19 +1,41 @@
 import React from 'react'
 import './Board.css'
 
-const renderCel = (makeMove, rowIndex, cellIndex, symbol, hasTurn) => {
-  return (
+const renderCel = (makeMove, columnIndex, cellIndex, symbol, hasTurn) => {
+  if(symbol === 'x')
+  {
+    return (    
+      <button
+        className="board-tile red"
+        disabled={hasTurn}
+        onClick={() => makeMove(columnIndex)}
+        key={`${columnIndex}-${cellIndex}`}
+      >{symbol || '-'}</button>
+    )
+  }
+  else if (symbol === 'o')
+  {
+    return (    
+      <button
+        className="board-tile yellow"
+        disabled={hasTurn}
+        onClick={() => makeMove(columnIndex)}
+        key={`${columnIndex}-${cellIndex}`}
+      >{symbol || '-'}</button>
+    )
+  }
+  return (    
     <button
       className="board-tile"
       disabled={hasTurn}
-      onClick={() => makeMove(rowIndex, cellIndex)}
-      key={`${rowIndex}-${cellIndex}`}
+      onClick={() => makeMove(columnIndex)}
+      key={`${columnIndex}-${cellIndex}`}
     >{symbol || '-'}</button>
   )
 }
 
-export default ({board, makeMove}) => board.map((cells, rowIndex) =>
-  <div key={rowIndex}>
-    {cells.map((symbol, cellIndex) => renderCel(makeMove, rowIndex, cellIndex,symbol,false))}
+export default ({board, makeMove}) => board.map((cells, columnIndex) =>
+  <div key={columnIndex} className='column'>
+    {cells.map((symbol, cellIndex) => renderCel(makeMove, columnIndex, cellIndex,symbol,false))}
   </div>
 )

@@ -1,6 +1,55 @@
 .outer-paper {
+  display: flex;
+  flex-direction: column;
   margin-top: 20px;
   margin: auto;
   padding: 20px;
   width: 60%;
+  color: white;
 }
+
+.game-header {
+  margin: 0;
+}
+
+.status-title {
+  margin-top: 5px;
+}
+
+.outer-paper div {
+  align-self: center;
+  border-radius: 15px;
+}
+
+.board {
+  width: 430px;
+  border: 1px solid blue;
+  background-color: blue;
+  display: flex;
+  justify-content: center;
+  align-self: center;
+  padding: 10px 0px;
+  border-radius: 15px;
+}
+
+.color-display {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.red-player {
+  background-color: red;
+}
+
+.yellow-player {
+  background-color: yellow;
+}
+
+.yellow-player, .red-player {
+  margin-top: 5px;
+  width: 20px;
+  height: 20px;
+  border-radius: 20px;
+}
+

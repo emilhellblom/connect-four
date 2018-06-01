@@ -5,7 +5,9 @@ import {getGames, joinGame, updateGame} from '../../actions/games'
 import {getUsers} from '../../actions/users'
 import {userId} from '../../jwt'
 import Paper from 'material-ui/Paper'
+import Button from 'material-ui/Button'
 import Board from './Board'
+import Chat from './Chat'
 import './GameDetails.css'
 
 class GameDetails extends PureComponent {
@@ -19,22 +21,23 @@ class GameDetails extends PureComponent {
 
   joinGame = () => this.props.joinGame(this.props.game.id)
 
-  makeMove = (toRow, toCell) => {
+  makeMove = (toColumn) => {
     const {game, updateGame} = this.props
 
-    const board = game.board.map(
-      (row, rowIndex) => row.map((cell, cellIndex) => {
-        if (rowIndex === toRow && cellIndex === toCell) return game.turn
-        else return cell
-      })
-    )
-    updateGame(game.id, board)
+    const board = game.board
+    const currentRow = board[toColumn]
+    const toCelln = currentRow.filter(cell => cell === null).length
+    if (toCelln === 0) return 
+    board[toColumn][toCelln-1] = game.turn
+    updateGame(game.id, board, null)
   }
 
+  
 
 
   render() {
     const {game, users, authenticated, userId} = this.props
+    console.log(this.props)
 
     if (!authenticated) return (
 			<Redirect to="/login" />
@@ -49,10 +52,19 @@ class GameDetails extends PureComponent {
       .filter(p => p.symbol === game.winner)
       .map(p => p.userId)[0]
 
-    return (<Paper className="outer-paper">
-      <h1>Game #{game.id}</h1>
+    const playerColor = () => {
+      if (player.symbol === 'x') return (
+        <div className='red-player'></div>
+      )
+      if (player.symbol === 'o') return (
+        <div className='yellow-player'></div>
+      )
+    }
 
-      <p>Status: {game.status}</p>
+    return (<Paper className="outer-paper">
+      <h1 className='game-header'>Game #{game.id}</h1>
+
+      <p className='status-title'>Status: {game.status}</p>
 
       {
         game.status === 'started' &&
@@ -61,9 +73,16 @@ class GameDetails extends PureComponent {
       }
 
       {
+        game.status === 'started' &&
+        <div className='color-display'>
+          This is your color {playerColor()}
+        </div>
+      }
+
+      {
         game.status === 'pending' &&
         game.players.map(p => p.userId).indexOf(userId) === -1 &&
-        <button onClick={this.joinGame}>Join Game</button>
+        <Button onClick={this.joinGame}>Join Game</Button>
       }
 
       {
@@ -75,8 +94,11 @@ class GameDetails extends PureComponent {
 
       {
         game.status !== 'pending' &&
-        <Board board={game.board} makeMove={this.makeMove} />
+        <div className='board' >
+          <Board board={game.board} makeMove={this.makeMove} />
+        </div>
       }
+      <Chat game={this.props.game}/>
     </Paper>)
   }
 }

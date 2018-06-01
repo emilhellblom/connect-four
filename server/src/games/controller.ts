@@ -4,7 +4,7 @@ import {
 } from 'routing-controllers'
 import User from '../users/entity'
 import { Game, Player, Board } from './entities'
-import {IsBoard, isValidTransition, calculateWinner, finished} from './logic'
+import {IsBoard, calculateWinner, finished} from './logic'
 import { Validate } from 'class-validator'
 import {io} from '../index'
 
@@ -14,6 +14,7 @@ class GameUpdate {
     message: 'Not a valid board'
   })
   board: Board
+  comment: String
 }
 
 @JsonController()
@@ -88,13 +89,18 @@ export default class GameController {
 
     if (!player) throw new ForbiddenError(`You are not part of this game`)
     if (game.status !== 'started') throw new BadRequestError(`The game is not started yet`)
-    if (player.symbol !== game.turn) throw new BadRequestError(`It's not your turn`)
-    if (!isValidTransition(player.symbol, game.board, update.board)) {
-      throw new BadRequestError(`Invalid move`)
-    }    
+    if (player.symbol !== game.turn) throw new BadRequestError(`It's not your turn`)   
 
-    const winner = calculateWinner(update.board)
-    if (winner) {
+    const winner = calculateWinner(update.board, player.symbol)
+    if (update.comment) {
+      game.comment = update.comment
+      io.emit('action', {
+        type: 'UPDATE_GAME',
+        payload: game
+      })
+      return game
+    }
+    else if (winner) {
       game.winner = winner
       game.status = 'finished'
     }
@@ -102,11 +108,12 @@ export default class GameController {
       game.status = 'finished'
     }
     else {
-      game.turn = player.symbol === 'x' ? 'o' : 'x'
+        game.turn = player.symbol === 'x' ? 'o' : 'x'
     }
+    
     game.board = update.board
     await game.save()
-    
+
     io.emit('action', {
       type: 'UPDATE_GAME',
       payload: game
@@ -115,7 +122,7 @@ export default class GameController {
     return game
   }
 
-  @Authorized()
+  // @Authorized()
   @Get('/games/:id([0-9]+)')
   getGame(
     @Param('id') id: number
@@ -123,7 +130,7 @@ export default class GameController {
     return Game.findOneById(id)
   }
 
-  @Authorized()
+  // @Authorized()
   @Get('/games')
   getGames() {
     return Game.find()
