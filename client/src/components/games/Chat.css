@@ -1,0 +1,22 @@
+.chat-bar {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 70vw;
+}
+
+.message-field {
+    height: 80px;
+    width: 80%;
+    overflow: scroll;
+    background-color: white;
+    border-radius: 5px !important;
+    margin: 10px;
+}
+
+.messages {
+    color: black;
+    text-align: left;
+    margin-left: 5px;
+}
+

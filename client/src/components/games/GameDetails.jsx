@@ -7,6 +7,7 @@ import {userId} from '../../jwt'
 import Paper from 'material-ui/Paper'
 import Button from 'material-ui/Button'
 import Board from './Board'
+import Chat from './Chat'
 import './GameDetails.css'
 
 class GameDetails extends PureComponent {
@@ -59,9 +60,9 @@ class GameDetails extends PureComponent {
     }
 
     return (<Paper className="outer-paper">
-      <h1>Game #{game.id}</h1>
+      <h1 className='game-header'>Game #{game.id}</h1>
 
-      <p>Status: {game.status}</p>
+      <p className='status-title'>Status: {game.status}</p>
 
       {
         game.status === 'started' &&
@@ -95,6 +96,7 @@ class GameDetails extends PureComponent {
           <Board board={game.board} makeMove={this.makeMove} />
         </div>
       }
+      <Chat />
     </Paper>)
   }
 }
