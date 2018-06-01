@@ -12,11 +12,38 @@
     background-color: white;
     border-radius: 5px !important;
     margin: 10px;
+    border: 2px solid black;
+    font-size: 70%;
+    color: black;
 }
 
 .messages {
     color: black;
     text-align: left;
     margin-left: 5px;
+}
+
+.submit-div {
+    width: 400px;
+}
+
+.submit-form {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+}
+
+.input-field {
+    width: 100%;
+    align-self: center;
+    height: 20px;
+    text-align: center;
+}
+
+.submit {
+    display: none;
 }
 
