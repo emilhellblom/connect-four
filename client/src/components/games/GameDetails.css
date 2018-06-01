@@ -9,8 +9,7 @@
 }
 
 .outer-paper div {
-  align-self: center;
-  padding: 10px 0px;
+  /*align-self: center;*/
   border-radius: 15px;
 }
 
@@ -20,6 +19,9 @@
   background-color: blue;
   display: flex;
   justify-content: center;
+  align-self: center;
+  padding: 10px 0px;
+  border-radius: 15px;
 }
 
 .color-display {

@@ -23,7 +23,7 @@ class GamesList extends PureComponent {
     {
       return (<Card key={game.id} className="game-card">
       <CardContent>
-        <Typography color="Primary">
+        <Typography color="primary">
           This game is played by&nbsp;
           {
             game.players
@@ -34,7 +34,7 @@ class GamesList extends PureComponent {
         <Typography variant="headline" component="h2">
           Game #{game.id}
         </Typography>
-        <Typography color="Secondary">
+        <Typography color="secondary">
           Status: {game.status}
         </Typography>
       </CardContent>
@@ -63,7 +63,7 @@ class GamesList extends PureComponent {
         <Typography variant="headline" component="h2">
           Game #{game.id}
         </Typography>
-        <Typography color="TextSecondary">
+        <Typography color="textSecondary">
           Status: {game.status}
         </Typography>
       </CardContent>
@@ -81,7 +81,7 @@ class GamesList extends PureComponent {
     {
       return (<Card key={game.id} className="game-card">
       <CardContent>
-        <Typography color="color">
+        <Typography color="primary">
           This game is played by&nbsp;
           {
             game.players
@@ -92,7 +92,7 @@ class GamesList extends PureComponent {
         <Typography variant="headline" component="h2">
           Game #{game.id}
         </Typography>
-        <Typography color="Primary">
+        <Typography color="primary">
           Status: {game.status}
         </Typography>
       </CardContent>
@@ -120,7 +120,7 @@ class GamesList extends PureComponent {
 
     return (<Paper className="outer-paper">
       <Button
-        color="primary"
+        color="green"
         variant="raised"
         onClick={createGame}
         className="create-game"
@@ -128,7 +128,7 @@ class GamesList extends PureComponent {
         Create Game
       </Button>
 
-      <div>
+      <div classnName="listwrapper">
         {games.map(game => this.renderGame(game))}
       </div>
     </Paper>)

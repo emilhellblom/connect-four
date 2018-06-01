@@ -5,6 +5,7 @@ h2 {
 
 .game-card {
   margin: 10px 10px 10px 0px;
+  
 }
 
 .create-game {
@@ -16,4 +17,12 @@ h2 {
   margin-top: 20px;
   padding: 20px;
   width: 60%;
+}
+
+.game-card {
+  width: 100%;
+}
+
+.listwrapper {
+  width: 100%;
 }

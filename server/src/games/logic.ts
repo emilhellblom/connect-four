@@ -42,7 +42,7 @@ export const calculateWinner = (board, playerSymbol) => {
 
   const ttbRowCheck = (column, incrementColumn, incrementRow) => {
     const checkItems = []
-    column.map((item, i) => {
+    column.map((i) => {
         if (board[i+incrementColumn] !== undefined) {
             if (board[incrementColumn+i][incrementRow+i] !== undefined)
             checkItems.push(board[i+incrementColumn][i+incrementRow])
@@ -54,7 +54,7 @@ export const calculateWinner = (board, playerSymbol) => {
 
   const bttRowCheck = (column, incrementColumn, incrementRow) => {
     const checkItems = []
-    column.map((item, i) => {
+    column.map((i) => {
         if (board[incrementColumn-i] !== undefined) {
             if (board[incrementColumn-i][incrementRow+i] !== undefined)
             checkItems.push(board[incrementColumn-i][incrementRow+i])
@@ -84,7 +84,7 @@ export const calculateWinner = (board, playerSymbol) => {
   let isVertical
 
   const verticalFunction = () => board.map(column => {
-    column.map((item, index) => {
+    column.map((index) => {
         if (
             slicer(column, index)
         ) return isVertical = true
@@ -95,7 +95,7 @@ export const calculateWinner = (board, playerSymbol) => {
 
   const checkHorizontal = (column, incrementColumn, incrementRow) => {
       const checkItems = []
-      column.map((item, i) => {
+      column.map((i) => {
           checkItems.push(board[incrementColumn+i][incrementRow])
           if ((checkItems.length >= 4) && slicer(checkItems, i)){
               return isHorizontal = true
