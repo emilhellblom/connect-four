@@ -8,7 +8,7 @@ const renderCel = (makeMove, columnIndex, cellIndex, symbol, hasTurn) => {
       <button
         className="board-tile red"
         disabled={hasTurn}
-        onClick={() => makeMove(columnIndex, cellIndex)}
+        onClick={() => makeMove(columnIndex)}
         key={`${columnIndex}-${cellIndex}`}
       >{symbol || '-'}</button>
     )
@@ -19,7 +19,7 @@ const renderCel = (makeMove, columnIndex, cellIndex, symbol, hasTurn) => {
       <button
         className="board-tile yellow"
         disabled={hasTurn}
-        onClick={() => makeMove(columnIndex, cellIndex)}
+        onClick={() => makeMove(columnIndex)}
         key={`${columnIndex}-${cellIndex}`}
       >{symbol || '-'}</button>
     )
@@ -28,7 +28,7 @@ const renderCel = (makeMove, columnIndex, cellIndex, symbol, hasTurn) => {
     <button
       className="board-tile"
       disabled={hasTurn}
-      onClick={() => makeMove(columnIndex, cellIndex)}
+      onClick={() => makeMove(columnIndex)}
       key={`${columnIndex}-${cellIndex}`}
     >{symbol || '-'}</button>
   )

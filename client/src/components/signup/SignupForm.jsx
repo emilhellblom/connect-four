@@ -1,4 +1,5 @@
 import React, {PureComponent} from 'react'
+import Button from 'material-ui/Button'
 
 export default class SignupForm extends PureComponent {
 	state = {}
@@ -47,7 +48,7 @@ export default class SignupForm extends PureComponent {
 					<p style={{color:'red'}}>The passwords do not match!</p>
 				}
 
-				<button type="submit">Sign up</button>
+				<Button type="submit">Sign up</Button>
 			</form>
 		)
 	}

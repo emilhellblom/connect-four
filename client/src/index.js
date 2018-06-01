@@ -6,8 +6,7 @@ import './index.css'
 import {Provider} from 'react-redux'
 import store from './store'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
-import purple from '@material-ui/core/colors/purple';
-import green from '@material-ui/core/colors/green';
+
 
 const theme = createMuiTheme({
   palette: {
