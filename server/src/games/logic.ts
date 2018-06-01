@@ -1,12 +1,13 @@
 import { ValidatorConstraint, ValidatorConstraintInterface } from 'class-validator'
 import { Board, Symbol, Column } from './entities'
+import { AdvancedConsoleLogger } from 'typeorm';
 
 @ValidatorConstraint()
 export class IsBoard implements ValidatorConstraintInterface {
 
   validate(board: Board) {
     const symbols = [ 'x', 'o', null ]
-    return board.length === 6 &&
+    return board.length === 7 &&
       board.every(column =>
         column.length === 6 &&
         column.every(symbol => symbols.includes(symbol))
@@ -32,38 +33,71 @@ export class IsBoard implements ValidatorConstraintInterface {
 
 export const calculateWinner = (board, playerSymbol) => {
   const symbol = ['x', 'o']
-  console.log(board)
   const slicer = (column, i) => {
-    if(
-    column.slice(0,4).every(cell => (column[i] === cell) && symbol.includes(cell)) ||
-    column.slice(1,5).every(cell => (column[i] === cell) && symbol.includes(cell)) ||
-    column.slice(2,6).every(cell => (column[i] === cell) && symbol.includes(cell))
-    ) return true
+    if (column.length === 7)
+        if(
+            column.slice(0,4).every(cell => (column[i] === cell) && symbol.includes(cell)) ||
+            column.slice(1,5).every(cell => (column[i] === cell) && symbol.includes(cell)) ||
+            column.slice(2,6).every(cell => (column[i] === cell) && symbol.includes(cell)) ||
+            column.slice(3,7).every(cell => (column[i] === cell) && symbol.includes(cell))
+    )   return true
+    if (column.length === 6)
+        if(
+            column.slice(0,4).every(cell => (column[i] === cell) && symbol.includes(cell)) ||
+            column.slice(1,5).every(cell => (column[i] === cell) && symbol.includes(cell)) ||
+            column.slice(2,6).every(cell => (column[i] === cell) && symbol.includes(cell))
+        )   return true
+    if (column.length === 5)
+        if(
+            column.slice(0,4).every(cell => (column[i] === cell) && symbol.includes(cell)) ||
+            column.slice(1,5).every(cell => (column[i] === cell) && symbol.includes(cell)) 
+        )   return true
+    if (column.length === 4)
+        if(column.slice(0, 4).every(cell => (column[i] === cell) && symbol.includes(cell)))
+            return true
+}
+
+  const ttbRowCheck = (column, incrementColumn, incrementRow) => {
+    const checkItems = []
+    column.map((item, i) => {
+        if (board[i+incrementColumn] !== undefined) {
+            if (board[incrementColumn+i][incrementRow+i] !== undefined)
+            checkItems.push(board[i+incrementColumn][i+incrementRow])
+        }
+        if ((checkItems.length >= 4) && slicer(checkItems, i))
+          return isDiagonal = true
+    })
+    console.log('top to bottom check', checkItems)
   }
 
-  // const ttbRowCheck = (column, incrementColumn, incrementRow) => {
-  //   const checkItems = []
-  //   column.map((item, i) => {
-  //       if (board[i+incrementColumn] !== undefined) {
-  //           if (board[incrementColumn+i][incrementRow+i] !== undefined)
-  //           checkItems.push(board[i+incrementColumn][i+incrementRow])
-  //       }
-  //       if ((checkItems.length >= 4) && slicer(checkItems, i))
-  //         return isDiagonal = true
-  //   })
-  // }
+  const bttRowCheck = (column, incrementColumn, incrementRow) => {
+    const checkItems = []
+    column.map((item, i) => {
+        if (board[incrementColumn-i] !== undefined) {
+            if (board[incrementColumn-i][incrementRow+i] !== undefined)
+            checkItems.push(board[incrementColumn-i][incrementRow+i])
+        }
+        if ((checkItems.length >= 4) && slicer(checkItems, i)) 
+            return isDiagonal = true
+    })
+    console.log('bottom to top check', checkItems)
+  }
+  let isDiagonal
 
-  // const bttRowCheck = (column, incrementColumn, incrementRow) => {
-  //   const checkItems = []
-  //   column.map((item, i) => {
-  //       if (board[incrementColumn-i] !== undefined) {
-  //           if (board[incrementColumn-i][incrementRow+i] !== undefined)
-  //           checkItems.push(board[incrementColumn-i][incrementRow+i])
-  //       }
-  //       if ((checkItems.length >= 4) && slicer(checkItems, i)) 
-  //           return isDiagonal = true
-  //   })
-  // }
+  const diagonalFunction = () => board.map(column => {
+    ttbRowCheck(column, 0, 0)
+    ttbRowCheck(column, 0, 1)
+    ttbRowCheck(column, 0, 2)
+    ttbRowCheck(column, 0, 3)
+    ttbRowCheck(column, 1, 0)
+    ttbRowCheck(column, 2, 0)
+    bttRowCheck(column, 6, 0)
+    bttRowCheck(column, 6, 1)
+    bttRowCheck(column, 6, 2)
+    bttRowCheck(column, 5, 0)
+    bttRowCheck(column, 4, 0)
+    bttRowCheck(column, 3, 0)
+  })
 
   let isVertical
 
@@ -74,20 +108,6 @@ export const calculateWinner = (board, playerSymbol) => {
         ) return isVertical = true
     })
   })
-  // let isDiagonal
-
-  // const diagonalFunction = () => board.map(column => {
-  //   ttbRowCheck(column, 0, 0)
-  //   ttbRowCheck(column, 0, 1)
-  //   ttbRowCheck(column, 0, 2)
-  //   ttbRowCheck(column, 1, 0)
-  //   ttbRowCheck(column, 2, 0)
-  //   bttRowCheck(column, 5, 0)
-  //   bttRowCheck(column, 5, 1)
-  //   bttRowCheck(column, 5, 2)
-  //   // bttRowCheck(column, 4, 0)
-  //   bttRowCheck(column, 3, 0)
-  // })
 
   let isHorizontal
 
@@ -99,8 +119,6 @@ export const calculateWinner = (board, playerSymbol) => {
               return isHorizontal = true
           }
       })
-      console.log(incrementRow)
-      console.log(checkItems)
   }
 
   const horizontalFunction = () => board.map((column, index) => {
@@ -109,12 +127,14 @@ export const calculateWinner = (board, playerSymbol) => {
   })
 
   horizontalFunction()
-  // diagonalFunction()
+  diagonalFunction()
   verticalFunction()
-  console.log(isVertical, 'what about thiiiiiiiiis?')
-  if ((isVertical || isHorizontal) === true)
+  if ((isVertical || isHorizontal || isDiagonal) === true)
     return playerSymbol
+
+    console.log('board after finish', board)
 }
+
 
 export const finished = (board: Board): boolean =>
   board
