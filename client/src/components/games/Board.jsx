@@ -2,11 +2,33 @@ import React from 'react'
 import './Board.css'
 
 const renderCel = (makeMove, columnIndex, cellIndex, symbol, hasTurn) => {
-  return (
+  if(symbol === 'x')
+  {
+    return (    
+      <button
+        className="board-tile red"
+        disabled={hasTurn}
+        onClick={() => makeMove(columnIndex)}
+        key={`${columnIndex}-${cellIndex}`}
+      >{symbol || '-'}</button>
+    )
+  }
+  else if (symbol === 'o')
+  {
+    return (    
+      <button
+        className="board-tile yellow"
+        disabled={hasTurn}
+        onClick={() => makeMove(columnIndex)}
+        key={`${columnIndex}-${cellIndex}`}
+      >{symbol || '-'}</button>
+    )
+  }
+  return (    
     <button
       className="board-tile"
       disabled={hasTurn}
-      onClick={() => makeMove(columnIndex, cellIndex)}
+      onClick={() => makeMove(columnIndex)}
       key={`${columnIndex}-${cellIndex}`}
     >{symbol || '-'}</button>
   )
